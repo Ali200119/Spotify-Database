@@ -53,9 +53,9 @@ INSERT INTO Musics VALUES
 ('Alfred - Outro', '0:39', 1, 1)
 
 
-CREATE VIEW MusicToBeMurderedInfo
+CREATE VIEW AlbumInfo
 AS
-SELECT m.Name AS 'Music', m.TotalSecond AS 'Total Second', ar.Name AS 'Artist', al.Name AS 'Album' FROM Musics m
+SELECT m.Name AS 'Music', m.TotalSecond AS 'Duration', ar.Name AS 'Artist', al.Name AS 'Album' FROM Musics m
 JOIN Artists ar
 ON
 ar.Artist_ID=m.Artist_ID
@@ -64,4 +64,17 @@ ON
 al.Album_ID=m.Album_ID
 
 
-SELECT * FROM MusicToBeMurderedInfo
+SELECT * FROM AlbumInfo
+
+
+
+CREATE VIEW ArtistInfo
+AS
+SELECT al.Name AS 'Albom', Count(m.Music_ID) AS 'Count of Tracks' FROM Albums al
+JOIN Musics m
+ON
+m.Album_ID=al.Album_ID
+GROUP BY al.Name
+
+
+SELECT * FROM ArtistInfo
