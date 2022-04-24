@@ -19,7 +19,7 @@ CREATE TABLE Musics
 (
 	Music_ID int primary key identity,
 	Name nvarchar(25),
-	TotalCount nvarchar(5),
+	TotalSecond nvarchar(5),
 	Album_ID int references Albums(Album_ID),
 	Artist_ID int references Artists(Artist_ID)
 )
@@ -51,3 +51,17 @@ INSERT INTO Musics VALUES
 ('No Regrets', '3:20', 1, 1),
 ('I Will', '5:03', 1, 1),
 ('Alfred - Outro', '0:39', 1, 1)
+
+
+CREATE VIEW MusicToBeMurderedInfo
+AS
+SELECT m.Name AS 'Music', m.TotalSecond AS 'Total Second', ar.Name AS 'Artist', al.Name AS 'Album' FROM Musics m
+JOIN Artists ar
+ON
+ar.Artist_ID=m.Artist_ID
+JOIN Albums al
+ON
+al.Album_ID=m.Album_ID
+
+
+SELECT * FROM MusicToBeMurderedInfo
